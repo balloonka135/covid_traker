@@ -1,2 +1,3 @@
 Django==3.0.5
 django-allauth==0.41.0
+social-auth-app-django==3.1.0

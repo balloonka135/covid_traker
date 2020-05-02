@@ -1,5 +1,6 @@
 {% extends "tracker/base.html" %}
 {% load static %}
+{% load socialaccount %}
 {% block body_block %}
   <div class="container">
     <div class="jumbotron">
@@ -14,7 +15,15 @@
           {{ profile_form.as_p }}
           <input type="submit" name="" value="Register">
         </form>
-        
+        {% load account socialaccount %}
+
+    {% get_providers as socialaccount_providers %}
+    <ul class="social_providers_list">
+    {% for provider in socialaccount_providers %}
+        <a title="{{provider.name}}" class="btn btn-outline-dark" 
+         href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}"><i class="fa fa-{{provider.name}}" id="social_icon"></i>{{provider.name}}</a>
+    {% endfor %}
+    </ul>
       {% endif %}
     </div>
   </div>
