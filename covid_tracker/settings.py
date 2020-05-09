@@ -39,6 +39,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    # 'tracker.middleware.AutomaticUserLoginMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -61,10 +62,11 @@ TEMPLATES = [
     },
 ]
 
-AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend',
-)
+AUTHENTICATION_BACKENDS = [
+   'tracker.utils.AuthenticationBackend',
+   'allauth.account.auth_backends.AuthenticationBackend',
+   # 'django.contrib.auth.backends.ModelBackend'
+]
 
 
 WSGI_APPLICATION = 'covid_tracker.wsgi.application'
@@ -163,3 +165,11 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     }
 }
+
+# api urls
+STAT_API_ENDPOINT = 'https://api.apify.com/v2/key-value-stores/lluBbYoQVN65R3BGO/records/LATEST?disableRedirect=true'
+APP_API_ENDPOINT = 'http://127.0.0.1:5000/'
+CREATE_USER_ENDPOINT = APP_API_ENDPOINT + 'user'
+GET_USER_ENDPOINT = APP_API_ENDPOINT + 'auth_user'
+
+

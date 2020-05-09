@@ -1,45 +1,59 @@
 from django.shortcuts import render
-from django.contrib.auth import authenticate, login, logout
-from django.http import HttpResponseRedirect, HttpResponse
+from django.contrib.auth import logout, authenticate
+from django.http import HttpResponseRedirect, HttpResponse, HttpResponseNotFound
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
+from django.conf import settings
+
+import requests
 
 from .models import UserProfile
-from .forms import UserSignInForm, UserProfileForm, UserShareDataForm
+from .forms import UserShareDataForm, UserCreateForm
 
 
 def index(request):
-    return render(request, 'tracker/index.html')
+    # landing related data
+    r = requests.get(url=settings.STAT_API_ENDPOINT)
+    data = r.json()
 
+    inf = data['infected']
+    infected = split_integer(inf)
 
-def user_register(request):
-    user_registered = False
+    dec = data['deceased']
+    deceased = split_integer(dec)
+
+    rec = data['recovered']
+    recovered = split_integer(rec)
+
+    context = {
+        'infected': infected,
+        'deceased': deceased,
+        'recovered': recovered
+    }
 
     if request.method == 'POST':
-        user_form = UserSignInForm(data=request.POST)
-        user_profile_form = UserProfileForm(data=request.POST)
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        name = request.POST.get('name')
+        occupation = request.POST.get('occupation')
+        status = request.POST.get('status')
 
-        if user_form.is_valid() and user_profile_form.is_valid():
-            user = user_form.save(request)
-            user.set_password(user.password)
-            user.save()
-            user_profile = user_profile_form.save(commit=False)
-            user_profile.user = user
-            if 'profile_pic' in request.FILES:
-                user_profile.profile_pic = request.FILES['profile_pic']
-            user_profile.save()
-            user_registered = True
-        else:
-            print(user_form.errors, user_profile_form.errors)
-    else:
-        user_form = UserSignInForm()
-        user_profile_form = UserProfileForm()
+        payload = {
+            'email': email,
+            'password': password,
+            'name': name,
+            'occupation': occupation,
+            'status': status,
+        }
 
-    return render(request, 'tracker/registration.html', {
-                        'user_form': user_form,
-                        'profile_form': user_profile_form,
-                        'registered': user_registered
-    })
+        req = requests.post(url=settings.CREATE_USER_ENDPOINT, data=payload)
+
+        # TODO: handle error requests in API
+        # response = req.json()
+        # if response[0] == 'ERROR':
+        #     return HttpResponseNotFound('Bad API response.')
+
+    return render(request, 'tracker/index.html', context)
 
 
 def user_login(request):
@@ -48,11 +62,7 @@ def user_login(request):
         password = request.POST.get('password')
         user = authenticate(username=username, password=password)
         if user:
-            if user.is_active:
-                login(request, user)
-                return HttpResponseRedirect(reverse('index'))
-            else:
-                return HttpResponse("The account is inactive.")
+            return HttpResponseRedirect('/')
         else:
             print("The login had failed. Check the correctness of the username/password.")
             return HttpResponse("Invalid login credentials")
@@ -67,6 +77,7 @@ def user_logout(request):
 
 
 def user_share_data(request):
+    # TODO: update with request to API
     success = False
     if request.method == 'POST':
         user_form = UserShareDataForm(data=request.POST)
@@ -84,4 +95,15 @@ def user_share_data(request):
                         'user_form': user_form,
                         'success': success
     })
+
+
+def split_integer(number):
+    return int(number) / 1000
+
+
+
+
+
+
+
 

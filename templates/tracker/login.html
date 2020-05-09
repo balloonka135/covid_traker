@@ -1,5 +1,4 @@
-{% extends 'tracker/base.html' %}
-{% block body_block %}
+<!-- 
   <div class="container">
     <div class="jumbotron">
       <h1>Login here :</h1>
@@ -14,4 +13,63 @@
 </form>
 </div>
   </div>
-{% endblock %}
+-->
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Covid tracker</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="HTML5 website template">
+  <meta name="keywords" content="global, template, html, sass, jquery">
+  <meta name="author" content="Bucky Maler">
+  <link rel="stylesheet" href="{% static "css/main.css" %}">
+</head>
+<body>
+<div class="perspective effect-rotate-left">
+  <div class="container"><div class="outer-nav--return"></div>
+    <div id="viewport" class="l-viewport">
+      <div class="l-wrapper">
+        <header class="header">
+          <a class="header--logo" href="/">
+            <img src="{% static "img/logo.png" %}" alt="Global">
+            <p>covid tracker</p>
+          </a>
+          <button class="header--cta cta">Share your data</button>
+        </header>
+        
+            <div class="hire">
+              <h2>SIGN IN</h2>
+              <!-- checkout formspree.io for easy form setup -->
+              <form class="work-request" action="/" method="post">
+                {% csrf_token %}
+                <div class="work-request--information">
+                  <div class="information-email">
+                    <input id="email" type="email" spellcheck="false" name="username">
+                    <label for="email">Email</label>
+                  </div>
+                  <div class="information-name">
+                    <input id="name" type="text" spellcheck="false" name="password">
+                    <label for="name">Password</label>
+                  </div>
+                </div>
+                <input type="submit" value="Submit">
+              </form>
+            </div>
+          
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="{% static "js/vendor/jquery-2.2.4.min.js" %}"><\/script>')</script>
+<script src="{% static "js/functions-min.js" %}"></script>
+</body>
+</html>
