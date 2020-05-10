@@ -58,9 +58,9 @@ def index(request):
 
 def user_login(request):
     if request.method == 'POST':
-        username = request.POST.get('username')
+        username = request.POST.get('email')
         password = request.POST.get('password')
-        user = authenticate(username=username, password=password)
+        user = authenticate(request, username=username, password=password)
         if user:
             return HttpResponseRedirect('/')
         else:

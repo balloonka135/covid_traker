@@ -8,17 +8,17 @@ import requests
 
 class AuthenticationBackend(ModelBackend):
 
-    def authenticate(self, request, username=None, password=None, **kwargs):
-        username = request.GET.get('username')
-        password = request.GET.get('password')
+    def authenticate(self, request, email=None, password=None, **kwargs):
+        email = request.POST.get('email')
+        password = request.POST.get('password')
 
-        if get_user_from_api(username, password) is None:
+        if get_user_from_api(email, password) is None:
             return None
 
         try:
-            user = User.objects.get(username=username)
+            user = User.objects.get(username=email)
         except User.DoesNotExist:
-            user = User(username=username)
+            user = User(username=email)
             user.is_staff = True
             user.save()
         return user
@@ -32,11 +32,11 @@ class AuthenticationBackend(ModelBackend):
 
 def get_user_from_api(username, password):
     payload = {
-        'username': username,
+        'email': username,
         'password': password
     }
 
-    req = requests.get(url=settings.GET_USER_ENDPOINT, data=payload)
+    req = requests.post(url=settings.GET_USER_ENDPOINT, data=payload)
     response = req.json()
 
     if response[0]['message'] == 'SUCCESS':

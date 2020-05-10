@@ -45,11 +45,11 @@
             <div class="hire">
               <h2>SIGN IN</h2>
               <!-- checkout formspree.io for easy form setup -->
-              <form class="work-request" action="/" method="post">
+              <form class="work-request" method="post">
                 {% csrf_token %}
                 <div class="work-request--information">
                   <div class="information-email">
-                    <input id="email" type="email" spellcheck="false" name="username">
+                    <input id="email" type="email" spellcheck="false" name="email">
                     <label for="email">Email</label>
                   </div>
                   <div class="information-name">
