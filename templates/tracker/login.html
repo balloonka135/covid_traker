@@ -1,20 +1,3 @@
-<!-- 
-  <div class="container">
-    <div class="jumbotron">
-      <h1>Login here :</h1>
-<form method="post" action="{% url 'tracker:login' %}">
-          {% csrf_token %}
-          {# A more "HTML" way of creating the login form#}
-          <label for="username">Username:</label>
-          <input type="text" name="username" placeholder="Username">
-<label for="password">Password:</label>
-          <input type="password" name="password" placeholder="Password">
-<input type="submit" name="" value="Login">
-</form>
-</div>
-  </div>
--->
-
 {% load static %}
 
 <!DOCTYPE html>
@@ -44,7 +27,6 @@
         
             <div class="hire">
               <h2>SIGN IN</h2>
-              <!-- checkout formspree.io for easy form setup -->
               <form class="work-request" method="post">
                 {% csrf_token %}
                 <div class="work-request--information">

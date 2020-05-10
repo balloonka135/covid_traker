@@ -14,7 +14,6 @@
 </head>
 <body>
 
-<!-- notification for small viewports and landscape oriented smartphones -->
 <div class="device-notification">
   <a class="device-notification--logo" href="#0">
     <img src="{% static "img/logo.png" %}" alt="Global">
@@ -148,7 +147,6 @@
           <li class="l-section section">
             <div class="hire">
               <h2>Share your data</h2>
-              <!-- checkout formspree.io for easy form setup -->
               <form class="work-request" action="/" method="post">
                 {% csrf_token %}
                 <div class="work-request--information">

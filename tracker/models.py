@@ -9,10 +9,6 @@ class UserProfile(models.Model):
         on_delete=models.CASCADE
     )
     profile_url = models.URLField(blank=True)
-    profile_pic = models.ImageField(
-        upload_to='profile_pics',
-        blank=True
-    )
     occupation = models.CharField(
         verbose_name=_('Occupation type'),
         help_text="Enter your occupation (e.g. student)",

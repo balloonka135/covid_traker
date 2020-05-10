@@ -8,7 +8,6 @@ from tracker import urls as tracker_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    re_path(r'^accounts/', include('allauth.urls')),
     path('tracker/', include(tracker_urls)),
     path('logout/', tracker_view.user_logout, name='logout'),
     re_path(r'^$', tracker_view.index, name='index'),
