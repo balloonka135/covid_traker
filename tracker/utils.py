@@ -36,13 +36,13 @@ def get_user_from_api(username, password):
         'password': password
     }
 
-    req = requests.post(url=settings.GET_USER_ENDPOINT, data=payload)
-    response = req.json()
+    # req = requests.post(url=settings.GET_USER_ENDPOINT, data=payload)
+    # response = req.json()
 
-    if response[0]['message'] == 'SUCCESS':
-        return response
-    else:
-        return None
+    # if response[0]['message'] == 'SUCCESS':
+    #     return response
+    # else:
+    #     return None
 
 
 

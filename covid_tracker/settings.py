@@ -11,7 +11,7 @@ SECRET_KEY = os.environ['CTRACKER_SECRET_KEY']
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['covid-tracker-app.us-west-2.elasticbeanstalk.com', '127.0.0.1', ]
+ALLOWED_HOSTS = ['covid-tracker-env.eba-u7q257mm.us-west-2.elasticbeanstalk.com', '127.0.0.1', ]
 
 
 INSTALLED_APPS = [
@@ -111,8 +111,8 @@ USE_TZ = True
 
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [STATIC_DIR, ]
-# STATIC_ROOT = 'static'
+# STATICFILES_DIRS = [STATIC_DIR, ]
+STATIC_ROOT = 'static'
 
 MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = '/media/'

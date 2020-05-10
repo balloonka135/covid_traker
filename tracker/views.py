@@ -46,7 +46,7 @@ def index(request):
             'status': status,
         }
 
-        req = requests.post(url=settings.CREATE_USER_ENDPOINT, data=payload)
+        # req = requests.post(url=settings.CREATE_USER_ENDPOINT, data=payload)
 
         # TODO: handle error requests in API
         # response = req.json()
