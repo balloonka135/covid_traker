@@ -124,5 +124,6 @@ STAT_API_ENDPOINT = 'https://api.apify.com/v2/key-value-stores/lluBbYoQVN65R3BGO
 APP_API_ENDPOINT = 'http://127.0.0.1:5000/'
 CREATE_USER_ENDPOINT = APP_API_ENDPOINT + 'user'
 GET_USER_ENDPOINT = APP_API_ENDPOINT + 'auth_user'
+UPDATE_USER_STATUS = APP_API_ENDPOINT + 'user/status'
 
 

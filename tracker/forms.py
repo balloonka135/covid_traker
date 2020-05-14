@@ -1,17 +1,4 @@
 from django import forms
-from django.contrib.auth.models import User
-
-from .models import UserProfile
-
-
-# user personal form for sharing data
-class UserShareDataForm(forms.ModelForm):
-
-    class Meta():
-        model = UserProfile
-        fields = (
-            'occupation', 'infection_status'
-        )
 
 
 # uniform form for user creation

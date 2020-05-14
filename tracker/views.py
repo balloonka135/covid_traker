@@ -8,7 +8,7 @@ from django.conf import settings
 import requests
 
 from .models import UserProfile
-from .forms import UserShareDataForm, UserCreateForm
+from .forms import UserCreateForm
 
 
 def index(request):
@@ -48,11 +48,6 @@ def index(request):
 
         req = requests.post(url=settings.CREATE_USER_ENDPOINT, data=payload)
 
-        # TODO: handle error requests in API
-        # response = req.json()
-        # if response[0] == 'ERROR':
-        #     return HttpResponseNotFound('Bad API response.')
-
     return render(request, 'tracker/index.html', context)
 
 
@@ -65,7 +60,7 @@ def user_login(request):
             return HttpResponseRedirect('/')
         else:
             print("The login had failed. Check the correctness of the username/password.")
-            return HttpResponse("Invalid login credentials")
+            return HttpResponse("Invalid login credentials.")
     else:
         return render(request, 'tracker/login.html', {})
 
@@ -76,25 +71,24 @@ def user_logout(request):
     return HttpResponseRedirect(reverse('index'))
 
 
-def user_share_data(request):
-    # TODO: update with request to API
-    success = False
+def user_update_status(request):
     if request.method == 'POST':
-        user_form = UserShareDataForm(data=request.POST)
-        if user_form.is_valid():
-            user = UserProfile.objects.get(user=request.user)
-            user_form = UserShareDataForm(data=request.POST, instance=user)
-            user_form.save()
-            success = True
-        else:
-            print(user_form.errors)
-    else:
-        user_form = UserShareDataForm()
+        email = request.POST.get('email')
+        updated_status = request.POST.get('status')
 
-    return render(request, 'tracker/user_profile_data.html', {
-                        'user_form': user_form,
-                        'success': success
-    })
+        payload = {
+            'email': email,
+            'status': updated_status
+        }
+
+        req = requests.put(url=settings.UPDATE_USER_STATUS, data=payload)
+
+        if req:
+            return HttpResponseRedirect('/')
+        else:
+            return HttpResponse("Error occured while updating status.")
+    else:
+        return render(request, 'tracker/update_status.html', {})
 
 
 def split_integer(number):
