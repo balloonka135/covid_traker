@@ -45,4 +45,3 @@ def get_user_from_api(username, password):
         return None
 
 
-

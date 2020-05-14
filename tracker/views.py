@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth import logout, authenticate
 from django.http import HttpResponseRedirect, HttpResponse, HttpResponseNotFound
 from django.urls import reverse
@@ -25,10 +25,13 @@ def index(request):
     rec = data['recovered']
     recovered = split_integer(rec)
 
+    auth = bool(request.GET.get('auth', False))
+
     context = {
         'infected': infected,
         'deceased': deceased,
-        'recovered': recovered
+        'recovered': recovered,
+        'is_authenticated': auth
     }
 
     if request.method == 'POST':
@@ -57,12 +60,12 @@ def user_login(request):
         password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
         if user:
-            return HttpResponseRedirect('/')
+            return redirect('{}?auth=True'.format(reverse('index')))
         else:
             print("The login had failed. Check the correctness of the username/password.")
             return HttpResponse("Invalid login credentials.")
     else:
-        return render(request, 'tracker/login.html', {})
+        return render(request, 'tracker/login.html')
 
 
 @login_required
