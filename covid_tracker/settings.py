@@ -58,7 +58,6 @@ TEMPLATES = [
 
 AUTHENTICATION_BACKENDS = [
    'tracker.utils.AuthenticationBackend',
-   'allauth.account.auth_backends.AuthenticationBackend',
    # 'django.contrib.auth.backends.ModelBackend'
 ]
 
@@ -111,8 +110,8 @@ USE_TZ = True
 
 
 STATIC_URL = '/static/'
-# STATICFILES_DIRS = [STATIC_DIR, ]
-STATIC_ROOT = 'static'
+STATICFILES_DIRS = [STATIC_DIR, ]
+# STATIC_ROOT = 'static'
 
 MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = '/media/'
@@ -121,8 +120,8 @@ LOGIN_URL = '/tracker/user_login/'
 
 # api urls
 STAT_API_ENDPOINT = 'https://api.apify.com/v2/key-value-stores/lluBbYoQVN65R3BGO/records/LATEST?disableRedirect=true'
-# APP_API_ENDPOINT = 'http://127.0.0.1:5000/'
-APP_API_ENDPOINT = 'http://covid-api.eu-west-1.elasticbeanstalk.com/'
+APP_API_ENDPOINT = 'http://127.0.0.1:5000/'
+# APP_API_ENDPOINT = 'http://covid-api.eu-west-1.elasticbeanstalk.com/'
 CREATE_USER_ENDPOINT = APP_API_ENDPOINT + 'user'
 GET_USER_ENDPOINT = APP_API_ENDPOINT + 'auth_user'
 UPDATE_USER_STATUS = APP_API_ENDPOINT + 'user/status'
