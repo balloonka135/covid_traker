@@ -9,7 +9,7 @@ MEDIA_DIR = os.path.join(BASE_DIR, 'media')
 
 SECRET_KEY = os.environ['CTRACKER_SECRET_KEY']
 
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['covid-tracker-env.eba-u7q257mm.us-west-2.elasticbeanstalk.com', '127.0.0.1', ]
 
@@ -110,8 +110,8 @@ USE_TZ = True
 
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [STATIC_DIR, ]
-# STATIC_ROOT = 'static'
+# STATICFILES_DIRS = [STATIC_DIR, ]
+STATIC_ROOT = 'static'
 
 MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = '/media/'
@@ -120,10 +120,10 @@ LOGIN_URL = '/tracker/user_login/'
 
 # api urls
 STAT_API_ENDPOINT = 'https://api.apify.com/v2/key-value-stores/lluBbYoQVN65R3BGO/records/LATEST?disableRedirect=true'
-APP_API_ENDPOINT = 'http://127.0.0.1:5000/'
-# APP_API_ENDPOINT = 'http://covid-api.eu-west-1.elasticbeanstalk.com/'
+APP_API_ENDPOINT = 'http://covid-api.eu-west-1.elasticbeanstalk.com/'
+SIM_API_ENDPOINT = 'http://sim-api-env.eba-fmxs3wqx.eu-west-1.elasticbeanstalk.com/'
 CREATE_USER_ENDPOINT = APP_API_ENDPOINT + 'user'
 GET_USER_ENDPOINT = APP_API_ENDPOINT + 'auth_user'
 UPDATE_USER_STATUS = APP_API_ENDPOINT + 'user/status'
 
-
+KIBANA_DASHBOARD = 'https://f5a932df38874baea2c5ec4cf7657288.eastus2.azure.elastic-cloud.com:9243/app/kibana#/dashboard/{timestamp}-dashboard'

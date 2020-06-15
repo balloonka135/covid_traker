@@ -1,0 +1,98 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Covid tracker</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="HTML5 website template">
+  <meta name="keywords" content="global, template, html, sass, jquery">
+  <meta name="author" content="Bucky Maler">
+  <link rel="stylesheet" href="https://d1go4iykjqbbpt.cloudfront.net/css/main.css">
+</head>
+<body>
+<div class="perspective effect-rotate-left">
+  <div class="container"><div class="outer-nav--return"></div>
+    <div id="viewport" class="l-viewport">
+      <div class="l-wrapper">
+        <header class="header">
+          <a class="header--logo" href="/">
+            <img src="https://d1go4iykjqbbpt.cloudfront.net/img/logo.png" alt="Global">
+            <p>covid tracker</p>
+          </a>
+          <button class="header--cta cta">Share your data</button>
+        </header>
+        
+            <div class="hire">
+              <h2>Run the simulation</h2>
+              <form class="work-request" method="post">
+                {% csrf_token %}
+                <div class="work-request--information">
+                  <div class="information-email">
+                    <input id="email" type="text" spellcheck="false" name="pop_size">
+                    <label for="email">Population size</label>
+                  </div>
+                  <div class="information-name">
+                    <input id="name" type="text" spellcheck="false" name="initial_infected">
+                    <label for="name">Initially infected</label>
+                  </div>
+                </div>
+                <div class="work-request--information">
+                  <div class="information-email">
+                    <input id="email" type="text" spellcheck="false" name="initial_exposed">
+                    <label for="email">Initially exposed</label>
+                  </div>
+                  <div class="information-name">
+                    <input id="name" type="text" spellcheck="false" name="nr_hospitals">
+                    <label for="name">Number of hospitals</label>
+                  </div>
+                </div>
+                <div class="work-request--information">
+                  <div class="information-email">
+                    <select name="governmental_policy" id="email" style="width: 350px;background: black;">
+                        <option value="initial">Governmental policy</option>
+                        <option value="normal">Normal</option>
+                        <option value="lockdown">Lockdown</option>
+                        <option value="curfew">Curfew</option>
+                        <option value="notification">Notification</option>
+                    </select>
+                  </div>
+                  <div class="information-name">
+                    <input id="name" type="text" spellcheck="false" name="nbr_days">
+                    <label for="name">Number of days</label>
+                  </div>
+                </div>
+                <div class="work-request--information">
+                  <div class="information-email">
+                    <input id="email" type="text" spellcheck="false" name="incubation_period">
+                    <label for="email">Incubation period</label>
+                  </div>
+                  <div class="information-name">
+                    <input id="name" type="text" spellcheck="false" name="recovery_period">
+                    <label for="name">Recovery period</label>
+                  </div>
+                </div>
+                <div class="work-request--information">
+                  <div class="information-email">
+                    <input id="email" type="text" spellcheck="false" name="mortality_rates">
+                    <label for="email">Mortality rates</label>
+                  </div>
+                </div>
+                <input type="submit" value="Submit">
+              </form>
+            </div>
+          
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="{% static "js/vendor/jquery-2.2.4.min.js" %}"><\/script>')</script>
+<script src="https://d1go4iykjqbbpt.cloudfront.net/js/functions-min.js"></script>
+</body>
+</html>

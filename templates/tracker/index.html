@@ -41,6 +41,8 @@
             <li class="is-active"><span>Home</span></li>
             <li><span>About</span></li>
             <li><span>Daily updates</span></li>
+            <li><span>Total infections rate</span></li>
+            <li><span>Individuals status rate</span></li>
             <li><span>Share data</span></li>
           </ul>
         </nav>
@@ -58,18 +60,21 @@
                   <span class="btn-background"></span>
                 </button>
                 {% if not is_authenticated %}
-                  <button class="cta"><a href="{% url 'tracker:login' %}" style="text-decoration: none; color: white; margin-left: 10px;" >LOGIN</a></button>
+                  <button class="cta" style="padding:0;"><a href="{% url 'tracker:login' %}" style="text-decoration: none; color: white; margin-left: 10px; border: 2px solid #0f33ff;padding: 7px 10px;">LOGIN</a></button>
                 {% else %}
-                  <button class="cta">LOGOUT</button>
+                  <button class="cta" style="padding:0;"><a href="/" style="text-decoration: none; color: white; margin-left: 10px; border: 2px solid #0f33ff;padding: 7px 10px;">LOGOUT</a></button>
                 {% endif %}
+                <button class="cta" style="padding:0;"><a href="{% url 'tracker:simulation' %}" style="text-decoration: none; color: white; margin-left: 10px; border: 2px solid #0f33ff;padding: 7px 10px;">SIMULATION</a></button>
                 <img src="https://d1go4iykjqbbpt.cloudfront.net/img/introduction-visual.png" alt="Welcome">
               </div>
+              {% if has_notification %}
               <div class="intro--options">
                 <a href="#0">
                   <h3>You were in contact with infected person</h3>
                   <p>Please make a check-up at the hospital</p>
                 </a>
               </div>
+              {% endif %}
             </div>
           </li>
           <li class="l-section section">
@@ -145,6 +150,18 @@
             </div>
           </li>
           <li class="l-section section">
+            <div class="work">
+                <h2>Total infections by age group</h2>
+                <iframe src="https://f5a932df38874baea2c5ec4cf7657288.eastus2.azure.elastic-cloud.com:9243/app/kibana#/visualize/edit/1590243156.8697028-infection-by-age-group?embed=true&_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-15m,to:now))&_a=(filters:!(),linked:!f,query:(language:kuery,query:''),uiState:(),vis:(aggs:!((enabled:!t,id:'1',params:(customLabel:'infected%20below%204',field:infected.below_4),schema:metric,type:max),(enabled:!t,id:'2',params:(customLabel:'infected%20between%204:18',field:infected.between4_18),schema:metric,type:max),(enabled:!t,id:'3',params:(customLabel:'infected%20between%2019:25',field:infected.between19_25),schema:metric,type:max),(enabled:!t,id:'4',params:(customLabel:'infected%20between%2026:40',field:infected.between26_40),schema:metric,type:max),(enabled:!t,id:'5',params:(customLabel:'infected%20between%2041:60',field:infected.between41_60),schema:metric,type:max),(enabled:!t,id:'6',params:(customLabel:'infected%20above%2060',field:infected.above_60),schema:metric,type:max),(enabled:!t,id:'7',params:(customLabel:Days,field:day,missingBucket:!f,missingBucketLabel:Missing,order:asc,orderAgg:(enabled:!t,id:'7-orderAgg',params:(field:day),schema:orderAgg,type:max),orderBy:custom,otherBucket:!f,otherBucketLabel:Other,size:30),schema:segment,type:terms)),params:(addLegend:!t,addTimeMarker:!f,addTooltip:!t,categoryAxes:!((id:CategoryAxis-1,labels:(filter:!t,show:!t,truncate:100),position:bottom,scale:(type:linear),show:!t,style:(),title:(),type:category)),grid:(categoryLines:!t,valueAxis:ValueAxis-1),labels:(),legendPosition:right,row:!t,seriesParams:!((data:(id:'1',label:'infected%20below%204'),drawLinesBetweenPoints:!t,interpolate:cardinal,lineWidth:2,mode:stacked,show:!t,showCircles:!f,type:histogram,valueAxis:ValueAxis-1),(data:(id:'2',label:'infected%20between%204:18'),drawLinesBetweenPoints:!t,interpolate:cardinal,lineWidth:2,mode:stacked,show:!t,showCircles:!f,type:histogram,valueAxis:ValueAxis-1),(data:(id:'3',label:'infected%20between%2019:25'),drawLinesBetweenPoints:!t,interpolate:cardinal,lineWidth:2,mode:stacked,show:!t,showCircles:!f,type:histogram,valueAxis:ValueAxis-1),(data:(id:'4',label:'infected%20between%2026:40'),drawLinesBetweenPoints:!t,interpolate:cardinal,lineWidth:2,mode:stacked,show:!t,showCircles:!f,type:histogram,valueAxis:ValueAxis-1),(data:(id:'5',label:'infected%20between%2041:60'),drawLinesBetweenPoints:!t,interpolate:cardinal,lineWidth:2,mode:stacked,show:!t,showCircles:!f,type:histogram,valueAxis:ValueAxis-1),(data:(id:'6',label:'infected%20above%2060'),drawLinesBetweenPoints:!t,interpolate:cardinal,lineWidth:2,mode:stacked,show:!t,showCircles:!f,type:histogram,valueAxis:ValueAxis-1)),thresholdLine:(color:%23E7664C,show:!f,style:full,value:10,width:1),times:!(),type:line,valueAxes:!((id:ValueAxis-1,labels:(filter:!f,rotate:0,show:!t,truncate:100),name:LeftAxis-1,position:left,scale:(mode:normal,type:linear),show:!t,style:(),title:(text:'Total%20infections%20by%20age%20group'),type:value))),title:'Infections%20by%20age%20group',type:histogram))" height="600" width="800" style="margin-left: 90px;"></iframe>
+            </div>
+          </li>
+          <li class="l-section section">
+            <div class="work">
+                <h2>Individuals status per day</h2>
+                <iframe src="https://f5a932df38874baea2c5ec4cf7657288.eastus2.azure.elastic-cloud.com:9243/app/kibana#/visualize/edit/1590243156.8697028-by-status?embed=true&_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-15m,to:now))&_a=(filters:!(),linked:!f,query:(language:kuery,query:''),uiState:(),vis:(aggs:!((enabled:!t,id:'1',params:(customLabel:Dead,field:dead.total_number),schema:metric,type:max),(enabled:!t,id:'2',params:(customLabel:Exposed,field:exposed.total_number),schema:metric,type:max),(enabled:!t,id:'3',params:(customLabel:Suspectible,field:suspectible.total_number),schema:metric,type:max),(enabled:!t,id:'4',params:(customLabel:Recovered,field:recovered.total_number),schema:metric,type:max),(enabled:!t,id:'5',params:(customLabel:Days,field:day,missingBucket:!f,missingBucketLabel:Missing,order:asc,orderBy:_key,otherBucket:!f,otherBucketLabel:Other,size:50),schema:segment,type:terms),(enabled:!t,id:'6',params:(customLabel:Infected,field:infected.total_number),schema:metric,type:max)),params:(addLegend:!t,addTimeMarker:!f,addTooltip:!t,categoryAxes:!((id:CategoryAxis-1,labels:(filter:!t,show:!t,truncate:100),position:bottom,scale:(type:linear),show:!t,style:(),title:(),type:category)),grid:(categoryLines:!f),labels:(),legendPosition:right,seriesParams:!((data:(id:'1',label:Dead),drawLinesBetweenPoints:!t,interpolate:cardinal,lineWidth:4,mode:normal,show:!t,showCircles:!f,type:line,valueAxis:ValueAxis-1),(data:(id:'2',label:Exposed),drawLinesBetweenPoints:!t,interpolate:cardinal,lineWidth:2.5,mode:normal,show:!t,showCircles:!f,type:line,valueAxis:ValueAxis-1),(data:(id:'3',label:Suspectible),drawLinesBetweenPoints:!t,interpolate:cardinal,lineWidth:2,mode:normal,show:!t,showCircles:!f,type:line,valueAxis:ValueAxis-1),(data:(id:'4',label:Recovered),drawLinesBetweenPoints:!t,interpolate:cardinal,lineWidth:2.5,mode:normal,show:!t,showCircles:!f,type:line,valueAxis:ValueAxis-1),(data:(id:'6',label:Infected),drawLinesBetweenPoints:!t,interpolate:cardinal,lineWidth:2.5,mode:normal,show:!t,showCircles:!f,type:line,valueAxis:ValueAxis-1)),thresholdLine:(color:%23E7664C,show:!f,style:full,value:10,width:1),times:!(),type:line,valueAxes:!((id:ValueAxis-1,labels:(filter:!f,rotate:0,show:!t,truncate:100),name:LeftAxis-1,position:left,scale:(mode:normal,type:linear),show:!t,style:(),title:(text:Individuals),type:value))),title:'Individuals%20status%20per%20day',type:line))" height="600" width="800" style="margin-left: 90px;"></iframe>
+            </div>
+          </li>
+          <li class="l-section section">
             <div class="hire">
               <h2>Share your data</h2>
               <form class="work-request" action="/" method="post">
@@ -189,10 +206,11 @@
     <li class="is-active">Home</li>
     <li>About</li>
     <li>Daily updates</li>
+    <li><span>Total infections rate</span></li>
+    <li><span>Individuals status rate</span></li>
     <li>Share your data</li>
   </ul>
 </div>
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="https://d1go4iykjqbbpt.cloudfront.net/js/jquery-2.2.4.min.js"><\/script>')</script>
 <script src="https://d1go4iykjqbbpt.cloudfront.net/js/functions-min.js"></script>
